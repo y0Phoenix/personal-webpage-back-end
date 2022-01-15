@@ -1,12 +1,15 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
+const cors = require('cors')
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello');
-});
+app.use(express.json({ extended: false }));
+app.use(cors());
 
-app.listen(3000, () => {
+app.use('/api/email', require('./routes/Email'));
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
     console.log('server started...')
 });
