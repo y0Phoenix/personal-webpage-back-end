@@ -12,7 +12,7 @@ router.post('/', [
     if(!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
-    const {fromData, text, subject} = req.body;
+    const {emailfrom, text, subject} = req.body;
 
     try {
         // create reusable transporter object using the default SMTP transport
@@ -29,10 +29,10 @@ router.post('/', [
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
-            from: fromData, // sender address
+            from: emailfrom, // sender address
             to: 'aarongraybill3@gmail.com', // list of receivers
             subject: subject, // Subject line
-            text: `From ${fromData}\n\n${text}`, // plain text body
+            text: `From ${emailfrom}\n\n${text}`, // plain text body
         });
 
         console.log("Message sent: %s", info.messageId);
@@ -41,7 +41,7 @@ router.post('/', [
         // Preview only available when sending through an Ethereal account
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
-        res.json({msg: `Email sent successfully from ${fromData}`});
+        res.json({msg: `Email sent successfully from ${emailfrom}`});
                 
     } catch (err) {
         console.error(err.message);
