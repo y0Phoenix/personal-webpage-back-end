@@ -32,7 +32,7 @@ router.post('/', [
             from: emailfrom, // sender address
             to: 'aarongraybill3@gmail.com', // list of receivers
             subject: subject, // Subject line
-            text: `From ${emailfrom}\n${text}`, // plain text body
+            text: `From ${emailfrom}\n\n${text}`, // plain text body
         });
 
         console.log("Message sent: %s", info.messageId);
