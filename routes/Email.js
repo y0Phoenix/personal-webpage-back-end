@@ -5,8 +5,8 @@ const nodemailer = require('nodemailer');
 
 router.post('/', [
     check('emailFrom', 'Please Enter A Valid Email').isEmail(),
-    check('text', 'Text is required').exists(),
-    check('subject', 'Please Enter a subject tag').exists()
+    check('text', 'Text is required').not().isEmpty(),
+    check('subject', 'Please Enter a subject tag').not().isEmpty()
 ], async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
