@@ -4,7 +4,7 @@ const { check, validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 
 router.post('/', [
-    check('fromData', 'Please Enter A Valid Email').isEmail(),
+    check('emailFrom', 'Please Enter A Valid Email').isEmail(),
     check('text', 'Text is required').exists(),
     check('subject', 'Please Enter a subject tag').exists()
 ], async (req, res) => {
