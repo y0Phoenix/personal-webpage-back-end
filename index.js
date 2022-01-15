@@ -1,8 +1,4 @@
 const express = require('express');
-const cors = require('cors');
-const {check, validationResult} = require('express-validator');
-const nodemailer = require('nodemailer');
-
 const app = express();
 
 app.use(express.json({ extended: false }));
