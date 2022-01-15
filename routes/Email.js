@@ -4,7 +4,7 @@ const { check, validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 
 router.post('/', [
-    check('emailfrom', 'Please Enter A Valid Email').isEmail(),
+    check('fromData', 'Please Enter A Valid Email').isEmail(),
     check('text', 'Text is required').exists(),
     check('subject', 'Please Enter a subject tag').exists()
 ], async (req, res) => {
@@ -12,7 +12,7 @@ router.post('/', [
     if(!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
-    const {emailfrom, text, subject} = req.body;
+    const {fromData, text, subject} = req.body;
 
     try {
         // create reusable transporter object using the default SMTP transport
@@ -22,17 +22,17 @@ router.post('/', [
             secure: false,
             service: 'Gmail',
             auth: {
-            user: 'aarongraybill3@gmail.com',
-            pass: 'xzbitnriwxdnhycf',
+                user: 'aarongraybill3@gmail.com',
+                pass: 'xzbitnriwxdnhycf',
             },
         });
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
-            from: emailfrom, // sender address
+            from: fromData, // sender address
             to: 'aarongraybill3@gmail.com', // list of receivers
             subject: subject, // Subject line
-            text: `From ${emailfrom}\n\n${text}`, // plain text body
+            text: `From ${fromData}\n\n${text}`, // plain text body
         });
 
         console.log("Message sent: %s", info.messageId);
@@ -41,7 +41,7 @@ router.post('/', [
         // Preview only available when sending through an Ethereal account
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
-        res.json({msg: `Email sent successfully from ${emailfrom}`});
+        res.json({msg: `Email sent successfully from ${fromData}`});
                 
     } catch (err) {
         console.error(err.message);
