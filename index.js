@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 const app = express();
 
 app.use(express.json({ extended: false }));
-app.use(cors());
+app.use(express.static('public'));
 
 app.post('/', [
     check('emailfrom', 'Please Enter A Valid Email').isEmail(),
